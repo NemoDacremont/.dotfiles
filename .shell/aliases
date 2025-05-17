@@ -1,0 +1,67 @@
+alias ls="ls --color"
+alias l="ls -lha"
+alias ll="ls -lh"
+alias cl="clear"
+alias ytm="yt-dlp -f bestaudio -x --audio-format mp3"
+
+alias today="date '+%Y-%m-%d'"
+alias now="date '+%s'"
+
+alias cyberchef="firefox https://unlock.eirb.fr/cyberchef"
+alias zathuraf="zathura --fork"
+
+alias nmrescan="nmcli d wifi list --rescan yes"
+alias nmhotspot="nmcli d wifi c Sqjrbak"
+
+alias vi="nvim"
+alias vim="nvim"
+
+alias copy="xclip -sel clip"
+alias cpy="xclip -sel clip"
+alias pcp="pwd | xclip -sel clip"
+alias stow="stow --dotfiles"
+
+alias gcc="gcc -g -Wall -Werror -std=c99"
+
+# Cours
+alias 1A="cd $HOME/Documents/Cours/1A"
+alias 2A="cd $HOME/Documents/Cours/2A"
+alias assos="cd $HOME/Documents/Cours/assos"
+
+alias algo="cd $HOME/Documents/Cours/1A/introduction_algorithmique"
+
+alias pg101="cd $HOME/Documents/Cours/1A/PG101/"
+alias pg104="cd $HOME/Documents/Cours/1A/pg104/"
+alias pg106="cd /home/odasta/Documents/Cours/1A/pg106-dev_logiciel/"
+alias pg116="cd /home/odasta/Documents/Cours/1A/pg116-21887/"
+
+alias if104="cd $HOME/Documents/Cours/1A/environnement_de_travail/"
+alias if102="cd $HOME/Documents/Cours/1A/IF102-structure_arborescente"
+alias if106="cd $HOME/Documents/Cours/1A/if106-graphes"
+
+alias is104="cd $HOME/Documents/Cours/1A/is104"
+alias it102="cd $HOME/Documents/Cours/1A/EI5IT102_structure_des_ordinateurs"
+
+alias proba="cd $HOME/Documents/Cours/1A/EI5IS101-Probabilites_et_statistiques/"
+alias anglais="cd $HOME/Documents/Cours/1A/Anglais/"
+alias projet="cd $HOME/Documents/Cours/1A/projet/"
+alias math="cd $HOME/Documents/Cours/1A/math"
+alias japonais="cd $HOME/Documents/Cours/1A/Japonais/"
+alias graphe="cd $HOME/Documents/Cours/1A/if106-graphes"
+
+alias prog="cd $HOME/Documents/programmation/"
+alias progGodot="cd $HOME/Documents/programmation/godot/"
+
+alias mfaverge="firefox https://cours-mf.gitlabpages.inria.fr/if104"
+alias floreal="firefox https://www.labri.fr/perso/fmoranda/pg101"
+alias ekip="firefox 'https://drive.google.com/drive/folders/1TBY1iqLkdAh0c5Gb5eAxyR9R6L8Em3ng?usp=drive_link'"
+alias coursAlgo="firefox https://drive.google.com/drive/u/0/folders/1eEXt0UcmV9PeU59vzruPzPko8rfXRWwP"
+alias coursProjet="firefox https://www.labri.fr/perso/renault/working/index.php"
+alias coursGraphe="firefox https://drive.google.com/drive/u/0/folders/198NMdqyew1E3U_3-IfVDxTq7BvRlPcVc"
+alias coursPG116="firefox https://thor.enseirb-matmeca.fr/sites/teaching-pg116-class/"
+alias alali="firefox https://www.labri.fr/perso/allali/?page_id=511"
+
+alias source="."
+
+alias sourceNVM="source /usr/share/nvm/install-nvm-exec && source /usr/share/nvm/bash_completion && source /usr/share/nvm/nvm.sh"
+alias exegol='sudo -E /home/ndacremont/.local/bin/exegol'

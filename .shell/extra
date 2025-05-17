@@ -1,0 +1,7 @@
+
+shopt -s autocd
+
+# SSH-AGENT
+# eval "$(cat $HOME/.ssh/ssh-agent)" > /dev/null
+# export SSH_AUTH_SOCK=$(systemctl --user show-environment | grep SSH_AUTH_SOCK | sed 's/SSH_AUTH_SOCK=//')
+

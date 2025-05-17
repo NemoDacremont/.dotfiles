@@ -1,0 +1,20 @@
+#!/bin/sh
+
+TEMPLATE_PATH="${HOME}/Templates"
+
+PREFIX=$1
+if [ -z "${PREFIX}" ]
+then
+	echo "Usage: $0 <makefile prefix>"  1>&2
+	echo "Example: $0 c" "# will copy" ' $TEMPLATE_PATH/prefix.makefile to Makefile'  1>&2
+	exit 1
+
+elif [ -f "$TEMPLATE_PATH/$PREFIX.makefile" ]
+then
+	cp -i "$TEMPLATE_PATH/$PREFIX.makefile" Makefile
+
+else
+	echo "$TEMPLATE_PATH/$PREFIX.makefile doesn't exists"  1>&2
+	exit 2
+fi
+
