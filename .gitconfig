@@ -1,0 +1,14 @@
+
+[user]
+		name = Nemo D'ACREMONT
+		email = ndacremont@enseirb-matmeca.fr
+	username = ndacremont
+
+[alias]
+	ci = commit
+	st = status
+	s = switch
+	b = branch
+
+[commit]
+	gpgsign = true
