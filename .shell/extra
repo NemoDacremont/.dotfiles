@@ -1,7 +1,10 @@
 
 shopt -s autocd
 
-# SSH-AGENT
-# eval "$(cat $HOME/.ssh/ssh-agent)" > /dev/null
-# export SSH_AUTH_SOCK=$(systemctl --user show-environment | grep SSH_AUTH_SOCK | sed 's/SSH_AUTH_SOCK=//')
-
+# SSH-AGENT https://wiki.archlinux.org/title/SSH_keys#SSH_agents
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [ ! -f "$SSH_AUTH_SOCK" ]; then
+    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+fi

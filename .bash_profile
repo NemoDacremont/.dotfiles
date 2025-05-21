@@ -12,6 +12,8 @@ export XDG_CONFIG_HOME="${HOME}/.config"
 
 source /usr/share/nvm/init-nvm.sh
 
+[ -f "${HOME}/.bashrc" ] && . "${HOME}/.bashrc"
+
 # eval "$(/usr/bin/ssh-agent -s)"
 #/usr/bin/ssh-agent -s >> $HOME/.ssh/ssh-agent 2>> $HOME/.ssh/ssh-agent.err
 
