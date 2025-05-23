@@ -1,0 +1,3 @@
+#!/bin/sh
+
+printf "%s°C %s" "$(acpi -t | awk '{print $4}')" ""

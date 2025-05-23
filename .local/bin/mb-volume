@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# echo "$(amixer -M get Master)" | grep -q "\[off\]" && \
+#     printf " " && \
+#     exit 0
+
+volume="$(pamixer --get-volume)"
+
+if [ "$volume" -gt 65 ]; then
+        icon=""
+elif [ "$volume" -lt 25 ]; then
+        icon=""
+else
+        icon=""
+fi
+
+printf "%s%% %s " "$volume" "$icon"

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+printf "MemFree: %sGB %s" \
+    "$(awk '/MemAvailable/ {printf("%.2f\n", $2/1024^2)}' /proc/meminfo)" " "
