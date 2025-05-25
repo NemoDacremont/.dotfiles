@@ -1,0 +1,23 @@
+#!/bin/sh
+
+activated=off
+
+if systemctl status bluetooth | grep " active"; then
+    activated=on
+fi
+
+choice=$(printf "on\noff" | dmenu -l 2 -p "currently $activated")
+
+term=st
+if [ -n "$TERMINAL"]; then
+    term="$TERMINAL"
+fi
+
+case "$choice" in
+    "on")
+        "$term" -e sudo systemctl start bluetooth
+        ;;
+    "off")
+        "$term" -e sudo systemctl stop bluetooth
+        ;;
+esac
