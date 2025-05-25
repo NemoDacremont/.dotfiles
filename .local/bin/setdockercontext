@@ -1,6 +1,6 @@
 #!/bin/sh
 
-choice=$(docker context ls --format 'json' | jq -r .Name | dmenu)
+choice=$(docker context ls --format 'json' | jq -r .Name | dmenu -l 5)
 
 if [ -n "$choice" ]; then
     docker context use "$choice"

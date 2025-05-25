@@ -1,15 +1,22 @@
 #!/bin/sh
 
 # Define temperature presets (label:temperature)
-options="Day:6500\nEvening:4500\nNight:3500\nReset:0 -x"
+options="Day:6500\nEvening:4500\nNight:3500\nReset:-x"
 
 # Use dmenu to prompt the user
-choice=$(printf "$options" | dmenu)
+choice=$(printf "$options" | dmenu -l 5)
 
 # Extract the temperature value from the selection
 temp=$(printf "%s" "$choice" | awk -F: '{print $2}')
 
 # If a valid temperature was selected, apply it with redshift
 if [ -n "$temp" ]; then
-    redshift -P -O "$temp"
+    case $temp in
+        -x)
+            redshift -P -x
+            ;;
+        *)
+            redshift -P -O "$temp"
+            ;;
+    esac
 fi

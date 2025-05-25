@@ -1,0 +1,16 @@
+#!/bin/sh
+
+config_path="${HOME}/.sshmountrc"
+
+if [ ! -f "$config_path" ]; then
+    printf "file ${HOME}/.sshmountrc doesn't exist, please create one\n"
+    exit 1
+fi
+
+choice=$(awk -F, '{ print $1 }' "$config_path" | dmenu -l 5)
+
+if [ -n "$choice" ]; then
+    target_dir="${HOME}/mnt/${choice}"
+    mkdir -p "${target_dir}"
+    sshfs "${choice}:/" "${target_dir}"
+fi
