@@ -2,10 +2,15 @@
 choice=$(find "$HOME/.ssh" -maxdepth 1 -type f -regex "$HOME/.ssh/id_[a-zA-Z0-9_-]+" | awk -F/ '{ print $NF}' | dmenu -l 5)
 
 if [ -n "$choice" ]; then
+    # Don't need to add
+    if ssh-add -L | grep "$(cat "~/.ssh/$choice.pub")"; then
+        exit 0
+    fi
+
     term=st
-    if [ -n "$TERMINAL"]; then
+    if [ -n "$TERMINAL" ]; then
         term="$TERMINAL"
     fi
 
-    "$term" -e ssh-add "$HOME/.ssh/$choice"
+    "$term" -e ssh-add "$HOME/.ssh/$choice.pub"
 fi

@@ -12,5 +12,8 @@ choice=$(awk -F, '{ print $1 }' "$config_path" | dmenu -l 5)
 if [ -n "$choice" ]; then
     target_dir="${HOME}/mnt/${choice}"
     mkdir -p "${target_dir}"
-    sshfs "${choice}:/" "${target_dir}"
+
+    if ! sshfs "${choice}:/" "${target_dir}"; then
+        st -e input "You must add ${choice}.pub to the ssh agent before mounting"
+    fi
 fi
