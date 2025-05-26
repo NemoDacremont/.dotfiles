@@ -13,7 +13,10 @@ if [ -n "$choice" ]; then
     target_dir="${HOME}/mnt/${choice}"
     mkdir -p "${target_dir}"
 
-    if ! sshfs "${choice}:/" "${target_dir}"; then
-        st -e input "You must add ${choice}.pub to the ssh agent before mounting"
+    term=st
+    if [ -n "$TERMINAL" ]; then
+        term="$TERMINAL"
     fi
+
+    $term sshfs "${choice}:/" "${target_dir}"
 fi
