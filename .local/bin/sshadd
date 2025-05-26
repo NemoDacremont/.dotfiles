@@ -3,7 +3,7 @@ choice=$(find "$HOME/.ssh" -maxdepth 1 -type f -regex "$HOME/.ssh/id_[a-zA-Z0-9_
 
 if [ -n "$choice" ]; then
     # Don't need to add
-    if ssh-add -L | grep "$(cat "~/.ssh/$choice.pub")"; then
+    if ssh-add -L | grep "$(cat "$HOME/.ssh/$choice.pub")"; then
         exit 0
     fi
 
@@ -12,5 +12,5 @@ if [ -n "$choice" ]; then
         term="$TERMINAL"
     fi
 
-    "$term" -e ssh-add "$HOME/.ssh/$choice.pub"
+    "$term" -e ssh-add "$HOME/.ssh/$choice"
 fi
