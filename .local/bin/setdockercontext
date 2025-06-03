@@ -1,6 +1,7 @@
 #!/bin/sh
 
-choice=$(docker context ls --format 'json' | jq -r .Name | dmenu -l 5)
+current_context=$(docker context show)
+choice=$(docker context ls --format 'json' | jq -r .Name | dmenu -l 5 -p "Current: $current_context")
 
 if [ -n "$choice" ]; then
     docker context use "$choice"
