@@ -2,24 +2,36 @@
 
 import sys
 import os
+import re
 
 
-transforms = {
-    ' ': '_',
-    'é': 'e',
-    'è': 'e',
-    'à': 'a',
-    'ç': 'c',
-    ':': '',
+transforms: dict[re.Pattern, str] = {
+    re.compile(' +'): '_',
+    re.compile('_+'): '_',
+    re.compile('_-_'): '-',
+    re.compile('_-'): '-',
+    re.compile('-_'): '-',
+    re.compile('é'): 'e',
+    re.compile('è'): 'e',
+    re.compile('ê'): 'e',
+    re.compile('à'): 'a',
+    re.compile('â'): 'a',
+    re.compile('ù'): 'u',
+    re.compile('ü'): 'u',
+    re.compile('û'): 'u',
+    re.compile('ï'): 'i',
+    re.compile('î'): 'i',
+    re.compile('ç'): 'c',
+    re.compile(':'): '',
+    re.compile('(?!\\w)', re.ASCII): ''
 }
-
 
 
 def format_basename(basename: str) -> str:
     out = basename
 
-    for transform in transforms:
-        out = out.replace(transform, transforms[transform])
+    for r in transforms:
+        out = r.sub(transforms[r], out)
 
     return out
 
@@ -29,20 +41,18 @@ def rename_path(filepath: str) -> None:
         for file in os.listdir(filepath):
             rename_path(f"{filepath}/{file}")
 
-    if os.path.exists(filepath):
+    if filepath != "." and os.path.exists(filepath):
         new_basename = format_basename(os.path.basename(filepath))
 
         new_dirname = ""
         if (os.path.dirname(filepath)):
             new_dirname = f"{os.path.dirname(filepath)}/"
 
+        print(filepath, f"{new_dirname}{new_basename}")
         os.rename(filepath, f"{new_dirname}{new_basename}")
 
 
 
 if __name__ == "__main__":
-    for argv in sys.argv:
+    for argv in sys.argv[1:]:
         rename_path(argv)
-
-
-
