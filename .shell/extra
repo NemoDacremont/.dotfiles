@@ -1,6 +1,9 @@
 
 shopt -s autocd
 
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
 # SSH-AGENT https://wiki.archlinux.org/title/SSH_keys#SSH_agents
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
