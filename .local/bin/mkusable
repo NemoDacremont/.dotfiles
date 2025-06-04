@@ -11,6 +11,7 @@ transforms: dict[re.Pattern, str] = {
     re.compile('_-_'): '-',
     re.compile('_-'): '-',
     re.compile('-_'): '-',
+    re.compile('[!?(){}\\[\\]]'): '',
     re.compile('é'): 'e',
     re.compile('è'): 'e',
     re.compile('ê'): 'e',
@@ -37,19 +38,20 @@ def format_basename(basename: str) -> str:
 
 
 def rename_path(filepath: str) -> None:
+    filepath = filepath.rstrip(os.sep)
+
     if (os.path.isdir(filepath)):
         for file in os.listdir(filepath):
-            rename_path(f"{filepath}/{file}")
+            rename_path(os.path.join(filepath, file))
 
     if filepath != "." and os.path.exists(filepath):
         new_basename = format_basename(os.path.basename(filepath))
 
         new_dirname = ""
         if (os.path.dirname(filepath)):
-            new_dirname = f"{os.path.dirname(filepath)}/"
+            new_dirname = os.path.dirname(filepath)
 
-        print(filepath, f"{new_dirname}{new_basename}")
-        os.rename(filepath, f"{new_dirname}{new_basename}")
+        os.rename(filepath, os.path.join(new_dirname, new_basename))
 
 
 

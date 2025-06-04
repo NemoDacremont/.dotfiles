@@ -1,6 +1,7 @@
 #!/bin/sh
 
 config_path="${HOME}/.sshmountrc"
+sshflags="-o cache=yes -o kernel_cache -o Ciphers=chacha20-poly1305@openssh.com -o Compression=no -o ServerAliveCountMax=3 -o ServerAliveInterval=15 -o reconnect -o workaround=rename -o idmap=user"
 
 if [ ! -f "$config_path" ]; then
     printf "file ${HOME}/.sshmountrc doesn't exist, please create one\n"
@@ -18,5 +19,5 @@ if [ -n "$choice" ]; then
         term="$TERMINAL"
     fi
 
-    $term sshfs "${choice}:/" "${target_dir}"
+    sshfs $sshflags "${choice}:/" "${target_dir}"
 fi
