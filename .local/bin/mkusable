@@ -8,9 +8,9 @@ import re
 transforms: dict[re.Pattern, str] = {
     re.compile(' +'): '_',
     re.compile('_+'): '_',
-    re.compile('_-_'): '-',
-    re.compile('_-'): '-',
-    re.compile('-_'): '-',
+    re.compile('_+-_+'): '-',
+    re.compile('_+-'): '-',
+    re.compile('-_+'): '-',
     re.compile('[!?(){}\\[\\]]'): '',
     re.compile('é'): 'e',
     re.compile('è'): 'e',
@@ -24,6 +24,8 @@ transforms: dict[re.Pattern, str] = {
     re.compile('î'): 'i',
     re.compile('ç'): 'c',
     re.compile(':'): '',
+    re.compile("'"): '',
+    re.compile('"'): '',
     re.compile('(?!\\w)', re.ASCII): ''
 }
 
@@ -34,7 +36,7 @@ def format_basename(basename: str) -> str:
     for r in transforms:
         out = r.sub(transforms[r], out)
 
-    return out
+    return out.encode("ascii", errors="ignore").decode()
 
 
 def rename_path(filepath: str) -> None:

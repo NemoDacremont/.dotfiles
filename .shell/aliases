@@ -19,7 +19,8 @@ alias vim="nvim"
 
 alias copy="xclip -sel clip"
 alias cpy="xclip -sel clip"
-alias pcp="pwd | xclip -sel clip"
+alias pcp="pwd | tr -d '\n' | xclip -sel clip"
+alias dcp="date -Iseconds | tr -d '\n' | xclip -sel clip"
 alias stow="stow --dotfiles"
 
 alias gcc="gcc -g -Wall -Werror -std=c99"

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ "$#" -lt 1 ]; then
+    printf "Usage : $0 STRING..." >&2
+    exit 1
+fi
+
+query=$(echo $@)
+res=$(yts $query)
+
+choice=$(printf "$res" | awk -F';' '{ printf $1 "\n" }' | dmenu -l 10 -p "query: $query")
+
+if [ -n "$choice" ]; then
+    printf "$res" | grep "$choice" | awk -F';' '{ printf $2 }' | sed 's/&.*//' | xclip -sel clip
+fi
