@@ -1,7 +1,7 @@
 
 [user]
-		name = Nemo D'ACREMONT
-		email = ndacremont@enseirb-matmeca.fr
+    name = Nemo D'ACREMONT
+    email = ndacremont@enseirb-matmeca.fr
 	username = ndacremont
 
 [alias]
@@ -12,3 +12,4 @@
 
 [commit]
 	gpgsign = true
+    glog = log --graph --oneline --decorate=short

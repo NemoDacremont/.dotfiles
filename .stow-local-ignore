@@ -4,3 +4,4 @@
 \.gitignore
 \.gitmodules
 ^/packages.*
+^/src*
