@@ -4,6 +4,7 @@ alias l="ls -lha"
 alias ll="ls -lh"
 alias cl="clear"
 alias ytm="yt-dlp -f bestaudio -x --audio-format mp3"
+alias ytv='yt-dlp -f "bv[height<=?720][tbr>500]+bestaudio"'
 
 alias today="date '+%Y-%m-%d'"
 alias now="date '+%s'"
