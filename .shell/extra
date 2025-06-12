@@ -1,5 +1,6 @@
 
 shopt -s autocd
+export GPG_TTY=$(tty)
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
