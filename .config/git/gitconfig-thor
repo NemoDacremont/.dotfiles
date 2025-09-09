@@ -1,0 +1,5 @@
+[user]
+    name = Nemo D'ACREMONT
+    email = ndacremont@enseirb-matmeca.fr
+    username = ndacremont
+    signingKey = ~/.ssh/id_ed25519_github

@@ -1,0 +1,5 @@
+[user]
+    name = Nemo D'ACREMONT
+    email = nemo.dacremont@proton.me
+    username = ndacremont
+    signingKey = ~/.ssh/id_gitea

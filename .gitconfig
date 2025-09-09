@@ -1,15 +1,30 @@
+[includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
+    path = "~/.config/git/gitconfig-github"
 
-[user]
-    name = Nemo D'ACREMONT
-    email = ndacremont@enseirb-matmeca.fr
-	username = ndacremont
+[includeIf "hasconfig:remote.*.url:ssh://git@thor.enseirb-matmeca.fr:*/**"]
+    path = "~/.config/git/gitconfig-thor"
+
+[includeIf "hasconfig:remote.*.url:git@git.dacremont.xyz:*/**"]
+    path = "~/.config/git/gitconfig-dacremont"
+
+[gpg]
+    format = ssh
+
+[gpg "ssh"]
+    allowedSignersFile = "~/.config/git/allowed_signers"
+
+[commit]
+    gpgsign = true
+
+[tag]
+    gpgsign = true
+
+[color]
+    ui = auto
 
 [alias]
 	ci = commit
 	st = status
 	s = switch
 	b = branch
-
-[commit]
-	gpgsign = true
-    glog = log --graph --oneline --decorate=short
+    glog = log --oneline --graph --decorate=short

@@ -1,0 +1,5 @@
+[user]
+    name = Nemo D'ACREMONT
+    email = github@dacremont.xyz
+    username = ndacremont
+    signingKey = ~/.ssh/id_ed25519_github
