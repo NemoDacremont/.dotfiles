@@ -7,3 +7,4 @@
 . "${HOME}/.shell/aliases"
 . "${HOME}/.shell/extra"
 . "${HOME}/.shell/prompt"
+. /usr/share/bash-completion/bash_completion
