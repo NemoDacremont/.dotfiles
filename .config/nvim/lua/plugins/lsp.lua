@@ -20,7 +20,7 @@ return {
     },
     config = function()
       local cmp = require('cmp')
-			local cmp_action = require('lsp-zero').cmp_action()
+      local cmp_action = require('lsp-zero').cmp_action()
 
       cmp.setup({
         sources = {
@@ -28,10 +28,10 @@ return {
         },
         mapping = cmp.mapping.preset.insert({
           ['<Tab>'] = cmp.mapping.complete(),
-					['<Tab>'] = cmp_action.luasnip_supertab(),
-					['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+          ['<Tab>'] = cmp_action.luasnip_supertab(),
+          ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
           ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-					['<CR>'] = cmp.mapping.confirm({select = false}),
+          ['<CR>'] = cmp.mapping.confirm({select = false}),
           ['<C-d>'] = cmp.mapping.scroll_docs(4),
         }),
         snippet = {
@@ -79,6 +79,32 @@ return {
         capabilities = require('cmp_nvim_lsp').default_capabilities()
       })
 
+      require('lspconfig').ltex_plus.setup {
+        settings = {
+          ltex = {
+            -- language = "en"
+            -- language = "de-DE"
+            language = "fr";
+          }
+        },
+        filetypes = { "vimwiki", "markdown", "md", "pandoc", "vimwiki.markdown.pandoc", "tex" },
+        -- flags = { debounce_text_changes = 300 },
+        -- on_attach = on_attach,
+      }
+
+      require('lspconfig').yamlls.setup {
+        -- ... -- other configuration for setup {}
+        settings = {
+          yaml = {
+            -- ... -- other settings. note this overrides the lspconfig defaults.
+            schemas = {
+              ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/v1.32.1-standalone-strict/all.json"] = "/*.k8s.yaml",
+              -- ... -- other schemas
+            },
+          },
+      }
+    }
+
       require('mason-lspconfig').setup({
         ensure_installed = {},
         handlers = {
@@ -90,21 +116,7 @@ return {
         }
       })
 
-			require('lspconfig').ltex.setup({
-				filetypes = { "vimwiki", "markdown", "md", "pandoc", "vimwiki.markdown.pandoc", "tex", "latex" },
-				settings = {
-					ltex = {
-						language = "fr"
-					}
-				},
-			})
 
-			require('lspconfig').ocamllsp.setup {
-				filetypes = { "ocaml", "ocaml.menhir", "ocaml.interface", "ocaml.ocamllex", "reason", "dune" },
-				root_dir = require('lspconfig').util.root_pattern("*.opam", "esy.json", "package.json", ".git", "dune-project", "dune-workspace", "*.ml"),
-				on_attach = on_attach,
-				capabilities = capabilities
-			}
-			end
+    end
   }
 }
