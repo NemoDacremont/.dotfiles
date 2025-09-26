@@ -29,6 +29,7 @@ alias gcc="gcc -g -Wall -Werror -std=c99"
 # Cours
 alias 1A="cd $HOME/Documents/Cours/1A"
 alias 2A="cd $HOME/Documents/Cours/2A"
+alias 3A="cd $HOME/Documents/Cours/3A"
 alias assos="cd $HOME/Documents/Cours/assos"
 
 alias algo="cd $HOME/Documents/Cours/1A/introduction_algorithmique"
@@ -66,5 +67,5 @@ alias alali="firefox https://www.labri.fr/perso/allali/?page_id=511"
 
 alias source="."
 
-alias sourceNVM="source /usr/share/nvm/install-nvm-exec && source /usr/share/nvm/bash_completion && source /usr/share/nvm/nvm.sh"
+alias sourceNVM="source /usr/share/nvm/init-nvm.sh"
 alias exegol='sudo -E /home/ndacremont/.local/bin/exegol'

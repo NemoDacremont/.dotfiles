@@ -1,5 +1,5 @@
 
-export PATH="$PATH:${HOME}/.local/bin"
+export PATH="$PATH:/usr/local/bin:${HOME}/.local/bin"
 
 export TERMINAL="st"
 export EDITOR="nvim"
