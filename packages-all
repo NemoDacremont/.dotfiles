@@ -31,12 +31,12 @@ brightnessctl
 cowsay
 curl
 docker
-docker-builx
+docker-buildx
 docker-compose
 fd
 feh
 firefox
-gnu-netcat
+openbsd-netcat
 jq
 iproute2
 jack
