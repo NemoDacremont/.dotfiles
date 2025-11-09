@@ -1,6 +1,9 @@
 [includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
     path = "~/.config/git/gitconfig-github"
 
+[includeIf "hasconfig:remote.*.url:git@gitlab.com:*/**"]
+    path = "~/.config/git/gitconfig-gitlab"
+
 [includeIf "hasconfig:remote.*.url:ssh://git@thor.enseirb-matmeca.fr:*/**"]
     path = "~/.config/git/gitconfig-thor"
 

@@ -9,7 +9,7 @@ fi
 choice=$(printf "on\noff" | dmenu -l 2 -p "currently $activated")
 
 term=st
-if [ -n "$TERMINAL"]; then
+if [ -n "$TERMINAL" ]; then
     term="$TERMINAL"
 fi
 

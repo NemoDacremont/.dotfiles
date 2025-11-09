@@ -1,0 +1,5 @@
+[user]
+    name = Nemo D'ACREMONT
+    email = gitlab@dacremont.xyz
+    username = ndacremont
+    signingKey = ~/.ssh/id_gitlab

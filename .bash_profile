@@ -1,5 +1,5 @@
 
-export PATH="$PATH:/usr/local/bin:${HOME}/.local/bin"
+export PATH="$PATH:/usr/local/bin:${HOME}/.local/bin:${HOME}/.config/composer/vendor/bin/"
 
 export TERMINAL="st"
 export EDITOR="nvim"

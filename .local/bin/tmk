@@ -17,4 +17,3 @@ else
 	echo "$TEMPLATE_PATH/$PREFIX.makefile doesn't exists"  1>&2
 	exit 2
 fi
-
