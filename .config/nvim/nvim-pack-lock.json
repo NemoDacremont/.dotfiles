@@ -4,6 +4,11 @@
       "rev": "1309bc88bffcf1bedc3e84e7fa9004de93da774a",
       "src": "https://github.com/ribru17/bamboo.nvim.git"
     },
+    "blink.cmp": {
+      "rev": "4b18c32adef2898f95cdef6192cbd5796c1a332d",
+      "src": "https://github.com/saghen/blink.cmp.git",
+      "version": "'v1.9.1'"
+    },
     "koda.nvim": {
       "rev": "3e3ff73b6b443db3d0ccf2dbeef507427061466c",
       "src": "https://github.com/oskarnurm/koda.nvim",

@@ -13,30 +13,34 @@ vim.api.nvim_create_autocmd('PackChanged', {
 
 -- Remap leader as soon as possible
 vim.g.mapleader = ' '
-vim.keymap.set("n", "<leader>po", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 vim.pack.add({
-    { src = "https://github.com/stevearc/oil.nvim.git",                        version = "stable" },
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter.git",          version = "v0.10.0" },
-    { src = "https://github.com/nvim-telescope/telescope.nvim.git",            version = "v0.2.1" },
-    { src = "https://github.com/nvim-lua/plenary.nvim.git",                    version = "v0.1.4" },                 -- Telescope dep
-    { src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim.git", version = "main",   build = "make" }, -- Telescope dep
-    { src = "https://github.com/nvim-tree/nvim-web-devicons.git",              version = "v0.100" },                 -- Telescope dep
-    { src = 'https://github.com/neovim/nvim-lspconfig' },  -- Basic config for LSP
-    { src = "https://github.com/mason-org/mason.nvim.git",                     version = 'v2.2.1' },  -- Download LSP easily
-    { src = "https://github.com/mason-org/mason-lspconfig.nvim.git", version = "v2.1.0" },  -- Auto enable LSP from mason
-    { src = "https://github.com/ribru17/bamboo.nvim.git" },
+    { src = 'https://github.com/stevearc/oil.nvim.git',                        version = 'stable' },
+    { src = 'https://github.com/nvim-treesitter/nvim-treesitter.git',          version = 'v0.10.0' },
+    { src = 'https://github.com/nvim-telescope/telescope.nvim.git',            version = 'v0.2.1' },
+    { src = 'https://github.com/nvim-lua/plenary.nvim.git',                    version = 'v0.1.4' },                 -- Telescope dep
+    { src = 'https://github.com/nvim-telescope/telescope-fzf-native.nvim.git', version = 'main',   build = 'make' }, -- Telescope dep
+    { src = 'https://github.com/nvim-tree/nvim-web-devicons.git',              version = 'v0.100' },                 -- Telescope dep
+    { src = 'https://github.com/neovim/nvim-lspconfig' },                                                            -- Basic config for LSP
+    { src = 'https://github.com/mason-org/mason.nvim.git',                     version = 'v2.2.1' },                 -- Download LSP easily
+    { src = 'https://github.com/mason-org/mason-lspconfig.nvim.git',           version = 'v2.1.0' },                 -- Auto enable LSP from mason
+    { src = 'https://github.com/ribru17/bamboo.nvim.git' },
+    { src = 'https://github.com/saghen/blink.cmp.git',                         version = 'v1.9.1' }                  -- Better auto-complete
 })
 
-require("oil").setup({
+require('oil').setup({
     view_options = {
         show_hidden = true,
     },
     columns = {
-        "icon",
+        'icon',
     },
 })
 
+-- Oil config
+vim.keymap.set('n', '<leader>po', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
+
+-- telescope config
 require('telescope').load_extension('fzf')
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
@@ -44,62 +48,55 @@ vim.keymap.set('n', '<leader>ps', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>pb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>ph', builtin.help_tags, {})
 
-require("mason").setup()
-require("mason-lspconfig").setup()
+-- Mason & lsp config
+require('mason').setup()
+require('mason-lspconfig').setup()
 vim.opt.termguicolors = true
-vim.cmd("colorscheme bamboo")
+vim.cmd('colorscheme bamboo')
 
-vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('my.lsp', {}),
-    callback = function(args)
-        local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-        if client:supports_method('textDocument/implementation') then
-            -- Create a keymap for vim.lsp.buf.implementation ...
-        end
+vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', {})
+vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', {})
+vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', {})
+vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', {})
+vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', {})
+vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', {})
+vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', {})
+vim.keymap.set('n', 'gR', '<cmd>lua vim.lsp.buf.rename()<cr>', {})
+vim.keymap.set({ 'n', 'x' }, 'gf', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', {})
+vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', {})
 
-        -- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
-        if client:supports_method('textDocument/completion') then
-            -- Optional: trigger autocompletion on EVERY keypress. May be slow!
-            local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
-            client.server_capabilities.completionProvider.triggerCharacters = chars
-
-            vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-        end
-
-        -- Auto-format ("lint") on save.
-        -- Usually not needed if server supports "textDocument/willSaveWaitUntil".
-        if not client:supports_method('textDocument/willSaveWaitUntil')
-            and client:supports_method('textDocument/formatting') then
-            vim.api.nvim_create_autocmd('BufWritePre', {
-                group = vim.api.nvim_create_augroup('my.lsp', { clear = false }),
-                buffer = args.buf,
-                callback = function()
-                    vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000 })
-                end,
-            })
-        end
-    end,
+-- Blink config
+require('blink.cmp').setup({
+    keymap = {
+        ['<Tab>'] = {
+            function(cmp)
+                if cmp.snippet_active() then
+                    return cmp.accept()
+                else
+                    return cmp.select_and_accept()
+                end
+            end,
+            'snippet_forward',
+            'fallback'
+        },
+        ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+        ['<CR>'] = { 'accept', 'fallback' },
+    },
+    signature = { enabled = true },
 })
 
-vim.opt.completeopt = { 'menuone', 'noinsert', 'noselect', 'popup' }
-vim.keymap.set("i", "<Tab>", function()
-    if vim.fn.pumvisible() ~= 0 then return "<C-n>" end
-    return "<Tab>"
-end, { expr = true })
+-- Rest of the configs
 
-vim.keymap.set("i", "<S-Tab>", function()
-    if vim.fn.pumvisible() ~= 0 then return "<C-p>" end
-    return "<S-Tab>"
-end, { expr = true })
+vim.keymap.set({ 'n', 'v' }, '<C-j>', '}')
+vim.keymap.set({ 'n', 'v' }, '<C-k>', '{')
 
-vim.keymap.set("i", "<CR>", function()
-  if vim.fn.complete_info()["selected"] ~= -1 then return "<C-y>" end
-  if vim.fn.pumvisible() ~= 0 then return "<C-e><CR>" end
-  return "<CR>"
-end, { expr = true })
+vim.keymap.set('i', '(', '()<left>')
+vim.keymap.set('i', '[', '[]<left>')
+vim.keymap.set('i', '{', '{}<left>')
 
+vim.keymap.set('i', "'", "''<left>")
+vim.keymap.set('i', '"', '""<left>')
 
--- for neo-tree
 vim.opt.nu = true
 vim.opt.rnu = true
 
@@ -112,13 +109,11 @@ vim.opt.smarttab = true
 vim.opt.smartindent = true
 vim.opt.expandtab = true
 
--- visual clues
 vim.opt.cursorline = true
-vim.opt.winborder = "rounded"
+vim.opt.winborder = 'rounded'
 
 vim.diagnostic.config({ virtual_text = true })
 vim.opt.listchars = {
-    eol = '$',
     tab = '=>',
     trail = '█'
 }
@@ -126,18 +121,18 @@ vim.opt.list = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undodir = os.getenv('HOME') .. '/.vim/undodir'
 vim.opt.undofile = true
 
 vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
+vim.opt.signcolumn = 'yes'
+vim.opt.isfname:append('@-@')
 
 vim.opt.updatetime = 50
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = '80'
 vim.opt.ignorecase = true
 
-vim.opt.backspace = "indent,eol,start"
+vim.opt.backspace = 'indent,eol,start'
 vim.opt.autochdir = false
 
 -- Performance improvements
